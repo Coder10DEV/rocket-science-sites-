@@ -2,7 +2,7 @@
 header {
     display: flex;                 /* align children in a row */
     align-items: center;           /* vertical alignment */
-    justify-content: flex-start;   /* push everything to the left */
+    justify-content: flex-end;   /* push everything to the right */
     padding: 10px 20px;
     background-color: #4A5EA1;
 }
