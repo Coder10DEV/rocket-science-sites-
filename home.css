@@ -1,0 +1,46 @@
+/* Header layout */
+header {
+    display: flex;                 /* align children in a row */
+    align-items: center;           /* vertical alignment */
+    justify-content: flex-start;   /* push everything to the left */
+    padding: 10px 20px;
+    background-color: #4A5EA1;
+}
+/* Reset and page background */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #5566a0;
+    font-family: Arial, sans-serif;
+}
+/* Footer layout */
+html, body {
+  height: 100%;        /* make the page take full height */
+  margin: 0;           /* remove default spacing */
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+    margin-top: auto;    /* pushes footer to the bottom */
+    background-color: #49598f;
+}
+
+footer .phone {
+    text-align: left;
+}
+
+footer .email {
+    text-align: right;
+}
+
+footer .copyright {
+    text-align: left;
+}
+
+/* Logo styling */
+.logo {
+    width: 150px;      /* adjust size as needed */
+    height: auto;
+    margin-right: auto;
+}

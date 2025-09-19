@@ -1,0 +1,53 @@
+/* Hamburger icon */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.hamburger div {
+    width: 30px;
+    height: 4px;
+    background-color: rgb(36, 121, 202);
+    margin: 4px 0;
+    border-radius: 2px;  /* curvy lines */
+    transition: all 0.4s ease-in-out; /* smooth animation */
+}
+
+/* Menu container */
+.menu {
+    position: absolute;
+    top: 60px;
+    left: 10px;             /* under hamburger */
+    max-height: 0;           /* hidden initially */
+    overflow: hidden;
+    background-color: #4565ac;
+    border-radius: 10px;     /* curvy edges */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: max-height 0.5s ease, padding 0.5s ease;
+    padding: 0;
+    list-style: none;
+}
+
+/* Menu visible when active */
+.menu.active {
+    max-height: 500px;
+    padding: 10px;
+}
+
+/* Menu items */
+.menu li {
+    margin: 10px 0;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.menu li a:hover {
+    color: #0077b6;
+}
