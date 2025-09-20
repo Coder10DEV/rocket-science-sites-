@@ -1,40 +1,42 @@
-/* Header layout */
-header {
-    display: flex;              
-    align-items: center;        
-    justify-content: space-between; 
-    padding: 10px;
-}
-
-.header-text {
-    text-align: center;     
-    max-width: 600px;       /* keep text readable */
-    margin: 0 auto;         /* centers it nicely */
-}
-
 /* Reset and page background */
 body {
     margin: 0;
     padding: 0;
     background-color: #5566a0;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow';
-}
-/* Footer layout */
-html, body {
-  height: 100%;        /* make the page take full height */
-  margin: 0;           /* remove default spacing */
-  display: flex;
-  flex-direction: column;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
 }
 
-footer {
-    margin-top: auto;    /* pushes footer to the bottom */
-    background-color: #49598f;
+/* Header layout */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    background-color: #7188d1;
 }
 
 /* Logo styling */
 .logo {
-    width: 150px;      /* adjust size as needed */
+    width: 150px;
     height: auto;
-    margin-right: auto;
+    margin-left: auto; /* pushes the logo to the right */
+}
+
+/* Main content */
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 15px;
+    text-align: center;
+    color: #fff;
+}
+
+/* Footer styling */
+footer {
+    background-color: #7188d1;
+    padding: 15px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
 }
