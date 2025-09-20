@@ -3,11 +3,11 @@ a {
 }
 
 body {
-    background-color: #33A;
+    background: linear-gradient(to right, #0090a9, #006ba9, #0044a9, #000879);
 }
 
 header {
-    background-color: #33A433;
+    background-color: #30517c;
 }
 
 
