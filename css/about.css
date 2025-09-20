@@ -3,11 +3,25 @@ a {
 }
 
 body {
-    background: linear-gradient(to right, #0090a9, #006ba9, #0044a9, #000879);
+    background: linear-gradient(to left, #3ea900, #00a917, #00770c, #026000);
 }
 
 header {
-    background-color: #30517c;
+    background: linear-gradient(to right, #a90000, #ba0000, #cd0000, #e30000);
+    
 }
-
+.about {
+    display: flex;
+    justify-content: center;   /* center horizontally */
+    align-items: center;       /* center vertically inside box */
+    background: linear-gradient(to right, #3ea900, #00a917, #00770c, #026000) purple;
+    color: white;
+    padding: 20px 40px;
+    margin: 20px auto;
+    width: fit-content;        /* shrink to fit text */
+    border-radius: 50px;       /* makes the curvy shape */
+    font-size: 2rem;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
 
