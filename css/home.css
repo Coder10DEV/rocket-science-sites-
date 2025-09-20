@@ -32,26 +32,9 @@ footer {
     background-color: #49598f;
 }
 
-footer .phone {
-    text-align: left;
-}
-
-footer .email {
-    text-align: right;
-}
-
-footer .copyright {
-    text-align: left;
-}
-
 /* Logo styling */
 .logo {
     width: 150px;      /* adjust size as needed */
     height: auto;
-    left: auto;
-}
-
-.intro {
-    text-align: center;
-    max-width: 600px;
+    margin-right: auto;
 }
