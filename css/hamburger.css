@@ -17,9 +17,9 @@
 
 /* Menu container */
 .menu {
-    position: absolute;
+    position:absolute;
     top: 60px;
-    left: 10px;             /* under hamburger */
+    right: 10px;             /* under hamburger */
     max-height: 0;           /* hidden initially */
     overflow: hidden;
     background-color: #4565ac;
