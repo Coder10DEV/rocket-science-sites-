@@ -6,7 +6,16 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
+/* Make the page full height */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 
 /* Header layout */
 header {
@@ -21,7 +30,7 @@ header {
 .site-title {
     margin: 0;
     font-size: 1.5rem;
-    color: #3c5e82;
+    color: #000000;
 }
 
 /* Navigation menu */
@@ -64,10 +73,11 @@ footer {
     font-size: 1rem;
     text-align: center;
     color: #fff;
+
 }
 
 .gradient-text {
-  font-size: 50px;
+  font-size: 30px;
   font-weight: bold;
 
   /* Gradient colors: Red → Purple */
