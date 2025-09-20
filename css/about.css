@@ -6,15 +6,11 @@ body {
     background: linear-gradient(to left, #3ea900, #00a917, #00770c, #026000);
 }
 
-header {
-    background: linear-gradient(to right, #660000, #890000, #a80000, #fa0000);
-    
-}
 .about {
     display: flex;
     justify-content: center;   /* center horizontally */
     align-items: center;       /* center vertically inside box */
-    background: linear-gradient(to right, #3ea900, #00a917, #00770c, #026000) purple;
+    background: linear-gradient(to right, #3ea900, #00a917, #00770c, #026000);
     color: white;
     padding: 20px 40px;
     margin: 20px auto;
@@ -25,3 +21,21 @@ header {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
+/* Navigation menu */
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.menu a:hover {
+    color: rgb(55, 131, 127);
+}
