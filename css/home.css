@@ -1,11 +1,17 @@
 /* Header layout */
 header {
-    display: flex;                 /* align children in a row */
-    align-items: center;           /* vertical alignment */
-    justify-content: flex-end;   /* push everything to the right */
-    padding: 10px 20px;
-    background-color: #4A5EA1;
+    display: flex;              
+    align-items: center;        
+    justify-content: space-between; 
+    padding: 10px;
 }
+
+.header-text {
+    text-align: center;     
+    max-width: 600px;       /* keep text readable */
+    margin: 0 auto;         /* centers it nicely */
+}
+
 /* Reset and page background */
 body {
     margin: 0;
