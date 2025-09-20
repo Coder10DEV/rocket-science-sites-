@@ -66,12 +66,18 @@ footer {
     color: #fff;
 }
 
-.area-link {
-    color: rgb(92, 106, 189);
-    text-decoration: none;
-    font-weight: bold;
-}
+.gradient-text {
+  font-size: 48px;               /* big so it looks cool */
+  font-weight: bold;
+  
+  /* Gradient background */
+  background: linear-gradient(to right, #00f, #f0f);
+  
+  /* Make the background show only on the text */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
-.area-link:hover {
-    text-decoration: #5566a0;
+  /* For Firefox */
+  background-clip: text;
+  color: transparent;
 }
