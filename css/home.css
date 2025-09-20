@@ -40,7 +40,7 @@ header {
 }
 
 .menu a:hover {
-    color: yellow;
+    color: rgb(77, 104, 173);
 }
 
 /* Logo */
@@ -67,7 +67,7 @@ footer {
 }
 
 footer a {
-    color: yellow;
+    color: rgb(92, 106, 189);
     text-decoration: none;
     font-weight: bold;
 }
