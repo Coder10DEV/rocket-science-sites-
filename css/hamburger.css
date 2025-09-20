@@ -4,6 +4,7 @@
     flex-direction: column;
     justify-content: center;
     cursor: pointer;
+    z-index: 1100; /* above menu */
 }
 
 .hamburger div {
@@ -15,25 +16,39 @@
     transition: all 0.4s ease-in-out; /* smooth animation */
 }
 
+/* Hamburger X animation when active */
+.hamburger.active div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active div:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
 /* Menu container */
 .menu {
     position: absolute;
-    top: 60px;
-    right: 10px;             /* under hamburger */
-    max-height: 0;           /* hidden initially */
+    top: 60px;             /* below header */
+    right: 10px;           /* aligns with hamburger */
+    max-height: 0;         /* hidden initially */
     overflow: hidden;
     background-color: #4565ac;
-    border-radius: 10px;     /* curvy edges */
+    border-radius: 10px;   /* curvy edges */
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transition: max-height 0.5s ease, padding 0.5s ease;
+    transition: max-height 0.5s ease, padding 0.5s ease, opacity 0.5s ease;
     padding: 0;
+    opacity: 0;
     list-style: none;
+    z-index: 1000;
 }
 
 /* Menu visible when active */
 .menu.active {
     max-height: 500px;
     padding: 10px;
+    opacity: 1;
 }
 
 /* Menu items */
