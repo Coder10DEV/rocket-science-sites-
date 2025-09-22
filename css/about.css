@@ -21,21 +21,35 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* Navigation menu */
-.menu {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    margin: 0;
-    padding: 0;
+
+/* Menu visible when active */
+.menu.active {
+    max-height: 500px;
+    padding: 10px;
 }
 
-.menu a {
+/* Menu items */
+.menu li {
+    margin: 10px 0;
+}
+
+.menu li a {
     text-decoration: none;
-    color: #000;
+    color: black;
     font-weight: bold;
+    transition: color 0.3s ease;
 }
 
-.menu a:hover {
-    color: rgb(55, 131, 127);
+.menu li a:hover {
+    color: #067300;
+}
+
+/* Hamburger sits on the right */
+.hamburger {
+    position: absolute;
+    top: 20px;   /* push down from top */
+    right: 20px; /* stick to the right */
+    transform: translateY(-50%); /* centers vertically */
+    cursor: pointer;
+    color: #067300;
 }

@@ -34,7 +34,7 @@
     right: 10px;           /* aligns with hamburger */
     max-height: 0;         /* hidden initially */
     overflow: hidden;
-    background-color: #4565ac;
+    background-color: #679566;
     border-radius: 10px;   /* curvy edges */
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     transition: max-height 0.5s ease, padding 0.5s ease, opacity 0.5s ease;
@@ -58,11 +58,11 @@
 
 .menu li a {
     text-decoration: none;
-    color: black;
+    color: rgb(255, 255, 255);
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
 .menu li a:hover {
-    color: #0077b6;
+    color: #eb0bff;
 }
