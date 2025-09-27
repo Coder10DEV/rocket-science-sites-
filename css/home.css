@@ -94,15 +94,16 @@ footer {
   color: transparent;
 }
 
-.comment-container {
-  max-width: 700px;
-  margin: 20px auto;
+.comments-container {
+  max-width: 600px;
+  margin: 0 auto;
   padding: 20px;
-  background: #4e779b;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  color: #5a8096;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background-color: #7aa2ff; /* solid blue-ish grey */
+  color: #f0f0f0; /* text visible on darker background */
 }
+
 
 .comment-header {
   font-weight: bold;
