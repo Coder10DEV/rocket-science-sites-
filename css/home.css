@@ -9,6 +9,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    margin: 0   ;
 }
 /* Make the page full height */
 html, body {
@@ -102,6 +103,7 @@ footer {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   background-color: #7aa2ff; /* solid blue-ish grey */
   color: #f0f0f0; /* text visible on darker background */
+  flex: 1;      /* allow to grow and fill space */
 }
 
 
