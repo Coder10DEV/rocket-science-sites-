@@ -108,3 +108,32 @@ footer {
   font-size: 14px;
   margin: 6px 0;
 }
+
+.comment-actions {
+  font-size: 13px;
+  color: #0073e6;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.comment-actions:hover {
+  text-decoration: underline;
+}
+
+.reply-box {
+  margin-left: 50px;
+  margin-top: 10px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ccc;
+  margin-right: 10px;
+}
+
+.comment-box {
+  display: flex;
+  margin-bottom: 20px;
+}
