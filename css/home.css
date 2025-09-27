@@ -137,3 +137,71 @@ footer {
   display: flex;
   margin-bottom: 20px;
 }
+
+.comment-buttons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.cancel-btn {
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  text-decoration: underline;
+}
+
+.publish-btn {
+  background: #2a2aff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.publish-btn:hover {
+  background: #1a1ab5;
+}
+
+.comment-actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.reply-form .comment-input,
+.reply-form .comment-textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.reply-form .publish-btn {
+  background: #2a2aff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.reply-form .cancel-btn {
+  color: #666;
+  cursor: pointer;
+  font-size: 13px;
+}
