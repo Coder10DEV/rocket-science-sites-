@@ -103,3 +103,8 @@ footer {
   color: gray;
   margin-left: 6px;
 }
+
+.comment-text {
+  font-size: 14px;
+  margin: 6px 0;
+}
