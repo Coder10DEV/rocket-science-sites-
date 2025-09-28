@@ -1,15 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
   const commentsContainer = document.querySelector(".comments-container");
-  const usernameInput = document.querySelector(".username");
-  const emailInput = document.querySelector(".email");
-  const commentBox = document.querySelector(".comment-textarea");
-  const publishBtn = document.querySelector(".publish-btn");
-  const cancelBtn = document.querySelector(".cancel-btn");
+  const mainForm = commentsContainer.querySelector(".comment-form");
+  const usernameInput = mainForm.querySelector(".username");
+  const emailInput = mainForm.querySelector(".email");
+  const commentBox = mainForm.querySelector(".comment-textarea");
+  const publishBtn = mainForm.querySelector(".publish-btn");
+  const cancelBtn = mainForm.querySelector(".cancel-btn");
 
+  // Load saved comments
   let savedComments = JSON.parse(localStorage.getItem("comments")) || [];
 
   function renderComments() {
-    // Remove all existing comment-box elements (except main form)
+    // Remove all existing comment-boxes except main form
     commentsContainer.querySelectorAll(".comment-box").forEach(el => el.remove());
 
     savedComments.forEach((comment, index) => {
@@ -19,9 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       commentDiv.innerHTML = `
         <div class="avatar"></div>
         <div class="comment-content">
-          <div class="comment-header">
-            ${comment.username} <span class="comment-date">${comment.date}</span>
-          </div>
+          <div class="comment-header">${comment.username} <span class="comment-date">${comment.date}</span></div>
           <div class="comment-text">${comment.text}</div>
           <span class="comment-actions like-btn">Like (${comment.likes})</span>
           <span class="comment-actions reply-btn">Reply</span>
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderComments();
 
-  // Publish main comment
+  // Main comment publish
   publishBtn.addEventListener("click", () => {
     const username = usernameInput.value.trim();
     const text = commentBox.value.trim();
@@ -78,30 +78,29 @@ document.addEventListener("DOMContentLoaded", () => {
     commentBox.value = "";
   });
 
-  // Handle like & reply clicks using event delegation
+  // Like & Reply
   commentsContainer.addEventListener("click", (e) => {
-    const parentCommentDiv = e.target.closest(".comment-box");
-    if (!parentCommentDiv) return;
+    const commentDiv = e.target.closest(".comment-box");
+    if (!commentDiv) return;
 
-    const commentIndex = parentCommentDiv.dataset.index;
+    const mainIndex = commentDiv.dataset.index;
+
     if (e.target.classList.contains("like-btn")) {
-      if (commentIndex !== undefined) {
-        savedComments[commentIndex].likes++;
+      if (mainIndex !== undefined) {
+        // Like main comment
+        savedComments[mainIndex].likes++;
       } else {
-        // It's a reply
-        const mainCommentDiv = parentCommentDiv.closest(".comment-box[data-index]");
-        const mainIndex = mainCommentDiv.dataset.index;
-        const replyText = parentCommentDiv.querySelector(".comment-text").textContent;
-        const replyObj = savedComments[mainIndex].replies.find(r => r.text === replyText);
-        if (replyObj) replyObj.likes++;
+        // Like reply
+        const parentComment = commentDiv.closest(".comment-box[data-index]");
+        const replyIndex = Array.from(parentComment.querySelectorAll(".reply-box > .comment-box")).indexOf(commentDiv);
+        savedComments[parentComment.dataset.index].replies[replyIndex].likes++;
       }
       localStorage.setItem("comments", JSON.stringify(savedComments));
       renderComments();
     }
 
     if (e.target.classList.contains("reply-btn")) {
-      // Only allow one reply form per comment
-      if (parentCommentDiv.querySelector(".reply-form")) return;
+      if (commentDiv.querySelector(".reply-form")) return;
 
       const replyForm = document.createElement("div");
       replyForm.classList.add("reply-form");
@@ -113,7 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <button class="publish-btn">Publish</button>
         </div>
       `;
-      parentCommentDiv.querySelector(".reply-box").appendChild(replyForm);
+
+      commentDiv.querySelector(".reply-box").appendChild(replyForm);
 
       // Cancel reply
       replyForm.querySelector(".cancel-btn").addEventListener("click", () => replyForm.remove());
@@ -122,14 +122,15 @@ document.addEventListener("DOMContentLoaded", () => {
       replyForm.querySelector(".publish-btn").addEventListener("click", () => {
         const username = replyForm.querySelector(".username").value.trim();
         const text = replyForm.querySelector(".comment-textarea").value.trim();
-        if (!username || !text) return alert("Please enter username and reply!");
+        if (!username || !text) return alert("Enter username and reply!");
 
-        savedComments[commentIndex].replies.push({
+        savedComments[commentDiv.dataset.index].replies.push({
           username,
           text,
           likes: 0,
           date: new Date().toLocaleString()
         });
+
         localStorage.setItem("comments", JSON.stringify(savedComments));
         renderComments();
       });
