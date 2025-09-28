@@ -7,18 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!localStorage.getItem("seenNews")) {
     popup.classList.add("show");
     overlay.classList.add("show");
-    popup.style.display = "block"; // allow transition
-    localStorage.setItem("seenNews", "true");
+    localStorage.setItem("seenNews", "true"); // mark as seen
   }
 
   // Close button hides popup and overlay
   closeBtn.addEventListener("click", () => {
     popup.classList.remove("show");
     overlay.classList.remove("show");
-
-    // Wait for animation before hiding completely
-    setTimeout(() => {
-      popup.style.display = "none";
-    }, 300); // match CSS transition time
   });
 });
