@@ -2,7 +2,7 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.9); /* scale down initially */
+  transform: translate(-50%, -50%) scale(0.9);
   background-color: #5566a0;
   color: #fff;
   padding: 20px;
@@ -11,13 +11,29 @@
   z-index: 1000;
   max-width: 400px;
   text-align: center;
-  opacity: 0;  /* start hidden */
+  opacity: 0;          /* start invisible */
+  pointer-events: none; /* can’t click when hidden */
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .news-popup.show {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+.news-popup button {
+  margin-top: 15px;
+  padding: 8px 15px;
+  border: none;
+  background-color: #2a2aff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.news-popup button:hover {
+  background-color: #1a1ab5;
 }
 
 .news-overlay {
