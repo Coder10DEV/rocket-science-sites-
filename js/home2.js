@@ -1,61 +1,57 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const publishBtn = document.querySelector(".publish-btn");
-  const cancelBtn = document.querySelector(".cancel-btn");
-  const usernameInput = document.querySelector(".username");
-  const commentInput = document.querySelector(".comment-textarea");
-  const commentsContainer = document.querySelector(".comments-container");
+const publishBtn = document.querySelector(".publish-btn");
+const cancelBtn = document.querySelector(".cancel-btn");
+const usernameInput = document.querySelector(".username");
+const emailInput = document.querySelector(".email");
+const commentTextarea = document.querySelector(".comment-textarea");
+const commentsContainer = document.querySelector(".comments-container");
 
-  let commentCount = 0; // total number of comments
-
-  // Update comment count display
-  const updateCount = () => {
-    let countDisplay = document.querySelector(".comment-count");
-    if (!countDisplay) {
-      countDisplay = document.createElement("p");
-      countDisplay.classList.add("comment-count");
-      commentsContainer.prepend(countDisplay);
-    }
-    countDisplay.textContent = `Total Comments: ${commentCount}`;
-  };
-
-  // Publish comment
-  publishBtn.addEventListener("click", () => {
+publishBtn.addEventListener("click", () => {
     const username = usernameInput.value.trim();
-    const comment = commentInput.value.trim();
+    const comment = commentTextarea.value.trim();
 
     if (!username || !comment) {
-      alert("Enter username and comment!");
-      return;
+        alert("Enter username and comment!");
+        return;
     }
 
-    // Create new comment box
-    const newComment = document.createElement("div");
-    newComment.classList.add("comment-box");
-    newComment.innerHTML = `
-      <div class="avatar"></div>
-      <div class="comment-content">
-        <div class="comment-header">${username} <span class="comment-date">Just now</span></div>
-        <div class="comment-text">${comment}</div>
-      </div>
+    // Create a new comment object
+    const newComment = { username, comment, time: new Date().toISOString() };
+
+    // Save it in localStorage
+    let savedComments = JSON.parse(localStorage.getItem("comments")) || [];
+    savedComments.push(newComment);
+    localStorage.setItem("comments", JSON.stringify(savedComments));
+
+    // Clear the inputs
+    usernameInput.value = "";
+    emailInput.value = "";
+    commentTextarea.value = "";
+
+    // Display it immediately
+    addCommentToDOM(newComment);
+});
+
+function addCommentToDOM(commentObj) {
+    const div = document.createElement("div");
+    div.classList.add("comment-box");
+    div.innerHTML = `
+        <div class="avatar"></div>
+        <div class="comment-content">
+            <div class="comment-header">
+                ${commentObj.username} <span class="comment-date">${new Date(commentObj.time).toLocaleString()}</span>
+            </div>
+            <div class="comment-text">${commentObj.comment}</div>
+            <span class="comment-actions">Like</span>
+            <span class="comment-actions">Reply</span>
+        </div>
     `;
-    
-    commentsContainer.appendChild(newComment);
+    commentsContainer.appendChild(div);
+}
 
-    // Clear inputs
-    usernameInput.value = "";
-    commentInput.value = "";
+document.addEventListener("DOMContentLoaded", () => {
+    const savedComments = JSON.parse(localStorage.getItem("comments")) || [];
+    savedComments.forEach(addCommentToDOM);
 
-    // Increase comment count
-    commentCount++;
-    updateCount();
-  });
-
-  // Cancel button
-  cancelBtn.addEventListener("click", () => {
-    usernameInput.value = "";
-    commentInput.value = "";
-  });
-
-  // Initialize comment count
-  updateCount();
+    // Optional: show total comments
+    console.log("Total comments:", savedComments.length);
 });
