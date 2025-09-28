@@ -1,139 +1,87 @@
 document.addEventListener("DOMContentLoaded", () => {
   const commentsContainer = document.querySelector(".comments-container");
-  const mainForm = commentsContainer.querySelector(".comment-form");
-  const usernameInput = mainForm.querySelector(".username");
-  const emailInput = mainForm.querySelector(".email");
-  const commentBox = mainForm.querySelector(".comment-textarea");
-  const publishBtn = mainForm.querySelector(".publish-btn");
-  const cancelBtn = mainForm.querySelector(".cancel-btn");
+  const publishBtn = document.querySelector(".publish-btn");
+  const cancelBtn = document.querySelector(".cancel-btn");
 
-  // Load saved comments
-  let savedComments = JSON.parse(localStorage.getItem("comments")) || [];
+  // Load and render comments from localStorage
+  function loadComments() {
+    return JSON.parse(localStorage.getItem("comments") || "[]");
+  }
+
+  function saveComments(comments) {
+    localStorage.setItem("comments", JSON.stringify(comments));
+  }
 
   function renderComments() {
-    // Remove all existing comment-boxes except main form
-    commentsContainer.querySelectorAll(".comment-box").forEach(el => el.remove());
+    const comments = loadComments();
+    const form = commentsContainer.querySelector(".comment-form");
+    
+    // Clear all comments except the form
+    commentsContainer.innerHTML = "";
+    commentsContainer.appendChild(form);
 
-    savedComments.forEach((comment, index) => {
-      const commentDiv = document.createElement("div");
-      commentDiv.classList.add("comment-box");
-      commentDiv.dataset.index = index;
-      commentDiv.innerHTML = `
+    comments.forEach((comment, index) => {
+      const div = document.createElement("div");
+      div.classList.add("comment-box");
+      div.innerHTML = `
         <div class="avatar"></div>
         <div class="comment-content">
-          <div class="comment-header">${comment.username} <span class="comment-date">${comment.date}</span></div>
+          <div class="comment-header">
+            ${comment.username} <span class="comment-date">${comment.date}</span>
+          </div>
           <div class="comment-text">${comment.text}</div>
-          <span class="comment-actions like-btn">Like (${comment.likes})</span>
-          <span class="comment-actions reply-btn">Reply</span>
-          <div class="reply-box"></div>
+          <span class="comment-actions like-btn" data-index="${index}">Like (${comment.likes || 0})</span>
         </div>
       `;
-      commentsContainer.appendChild(commentDiv);
-
-      // Render replies
-      comment.replies.forEach(reply => {
-        const replyDiv = document.createElement("div");
-        replyDiv.classList.add("comment-box");
-        replyDiv.style.marginLeft = "40px";
-        replyDiv.innerHTML = `
-          <div class="avatar"></div>
-          <div class="comment-content">
-            <div class="comment-header">${reply.username} <span class="comment-date">${reply.date}</span></div>
-            <div class="comment-text">${reply.text}</div>
-            <span class="comment-actions like-btn">Like (${reply.likes})</span>
-          </div>
-        `;
-        commentDiv.querySelector(".reply-box").appendChild(replyDiv);
-      });
+      commentsContainer.appendChild(div);
     });
   }
 
   renderComments();
 
-  // Main comment publish
+  // Publish comment
   publishBtn.addEventListener("click", () => {
-    const username = usernameInput.value.trim();
-    const text = commentBox.value.trim();
-    if (!username || !text) return alert("Please enter a username and comment!");
+    const username = document.querySelector(".username").value.trim();
+    const commentText = document.querySelector(".comment-textarea").value.trim();
 
-    savedComments.push({
+    if (!username || !commentText) return alert("Please add username and comment!");
+
+    const comments = loadComments();
+    comments.push({
       username,
-      text,
-      likes: 0,
+      text: commentText,
       date: new Date().toLocaleString(),
-      replies: []
+      likes: 0
     });
-    localStorage.setItem("comments", JSON.stringify(savedComments));
 
-    usernameInput.value = "";
-    emailInput.value = "";
-    commentBox.value = "";
-
+    saveComments(comments);
     renderComments();
+
+    document.querySelector(".username").value = "";
+    document.querySelector(".comment-textarea").value = "";
   });
 
+  // Cancel button
   cancelBtn.addEventListener("click", () => {
-    usernameInput.value = "";
-    emailInput.value = "";
-    commentBox.value = "";
+    document.querySelector(".username").value = "";
+    document.querySelector(".comment-textarea").value = "";
   });
 
-  // Like & Reply
+  // Like button handler
   commentsContainer.addEventListener("click", (e) => {
-    const commentDiv = e.target.closest(".comment-box");
-    if (!commentDiv) return;
-
-    const mainIndex = commentDiv.dataset.index;
-
     if (e.target.classList.contains("like-btn")) {
-      if (mainIndex !== undefined) {
-        // Like main comment
-        savedComments[mainIndex].likes++;
-      } else {
-        // Like reply
-        const parentComment = commentDiv.closest(".comment-box[data-index]");
-        const replyIndex = Array.from(parentComment.querySelectorAll(".reply-box > .comment-box")).indexOf(commentDiv);
-        savedComments[parentComment.dataset.index].replies[replyIndex].likes++;
-      }
-      localStorage.setItem("comments", JSON.stringify(savedComments));
+      const index = e.target.getAttribute("data-index");
+      const comments = loadComments();
+      comments[index].likes = (comments[index].likes || 0) + 1;
+      saveComments(comments);
       renderComments();
     }
+  });
 
-    if (e.target.classList.contains("reply-btn")) {
-      if (commentDiv.querySelector(".reply-form")) return;
-
-      const replyForm = document.createElement("div");
-      replyForm.classList.add("reply-form");
-      replyForm.innerHTML = `
-        <input type="text" placeholder="Username*" class="comment-input username">
-        <textarea placeholder="Write a reply..." class="comment-textarea"></textarea>
-        <div class="comment-actions-row">
-          <span class="cancel-btn">Cancel</span>
-          <button class="publish-btn">Publish</button>
-        </div>
-      `;
-
-      commentDiv.querySelector(".reply-box").appendChild(replyForm);
-
-      // Cancel reply
-      replyForm.querySelector(".cancel-btn").addEventListener("click", () => replyForm.remove());
-
-      // Publish reply
-      replyForm.querySelector(".publish-btn").addEventListener("click", () => {
-        const username = replyForm.querySelector(".username").value.trim();
-        const text = replyForm.querySelector(".comment-textarea").value.trim();
-        if (!username || !text) return alert("Enter username and reply!");
-
-        savedComments[commentDiv.dataset.index].replies.push({
-          username,
-          text,
-          likes: 0,
-          date: new Date().toLocaleString()
-        });
-
-        localStorage.setItem("comments", JSON.stringify(savedComments));
-        renderComments();
-      });
+  // Listen for changes in other tabs
+  window.addEventListener("storage", (e) => {
+    if (e.key === "comments") {
+      renderComments();
     }
   });
 });
